@@ -1,4 +1,4 @@
-describe('The whole Airport', function(){
+describe('Airport FEATURE', function(){
   var plane;
   var airport;
 
