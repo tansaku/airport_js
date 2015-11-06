@@ -1,9 +1,18 @@
 function Airport(){
-  var plane_store = [];
+  var hanger = [];
   this.planes = function(){ 
-    return plane_store; 
+    return hanger; 
   }
-  this.receive = function(plane) { 
-    plane_store.push(plane); 
+  this.clearForLanding = function(plane) { 
+    hanger.push(plane); 
+  };
+  this.clearForTakeOff = function(plane){
+    if(this.isStormy()) {
+      throw new Error('cannot takeoff during storm')
+    }
+    hanger = [];
+  };
+  this.isStormy = function(){
+    return false;
   };
 }
