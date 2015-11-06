@@ -27,9 +27,21 @@ describe('Airport FEATURE', function(){
   // To ensure safety 
   // I want to prevent takeoff when weather is stormy 
   it('blocks takeoff when weather is stormy', function(){
-    spyOn(airport,'isStormy').and.returnValue(true);
     plane.land(airport)
+    spyOn(airport,'isStormy').and.returnValue(true);
     expect(function(){ plane.takeoff();}).toThrowError('cannot takeoff during storm');
     expect(airport.planes()).toContain(plane);
   });
+  // As an air traffic controller 
+  // To ensure safety 
+  // I want to prevent landing when weather is stormy 
+  it('blocks landing when weather is stormy', function(){
+    spyOn(airport,'isStormy').and.returnValue(true);
+    expect(function(){ plane.land(airport); }).toThrowError('cannot land during storm');
+    expect(airport.planes()).toEqual([]);
+  });
+
+  // weather should be random and come in via dependency injection?
+
+  // need capacity?
 });
