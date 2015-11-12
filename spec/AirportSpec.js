@@ -7,7 +7,7 @@ describe('Airport', function(){
 
   beforeEach(function(){
     plane = jasmine.createSpy('plane');
-    weather = { isStormy: function(){} };
+    weather = jasmine.createSpyObj('weather', ['isStormy']);
     airport = new Airport(weather);
   });
 
@@ -17,7 +17,7 @@ describe('Airport', function(){
 
   describe('under normal conditions',function(){
     beforeEach(function(){
-      spyOn(weather,'isStormy').and.returnValue(false);
+      weather.isStormy.and.returnValue(false);
     });
     it('can clear planes for landing', function(){
       airport.clearForLanding(plane);
@@ -32,7 +32,7 @@ describe('Airport', function(){
 
   describe('under stormy conditions',function(){
     beforeEach(function(){
-      spyOn(weather,'isStormy').and.returnValue(true);
+      weather.isStormy.and.returnValue(true);
     });
     it('does not clear planes for landing', function(){
       expect(function(){ airport.clearForLanding(plane); }).toThrowError('cannot land during storm');
